@@ -8,11 +8,11 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
     except getopt.GetoptError:
-        print 'test.py -i <inputfile> -o <outputdirectory>'
+        print './script.py -i <inputfile> -o <outputdirectory>'
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print 'test.py -i <inputfile> -o <outputdirectory>'
+            print './script.py -i <inputfile> -o <outputdirectory>'
             sys.exit()
         elif opt in ("-i", "--ifile"):
             inputfile = arg
@@ -26,9 +26,9 @@ def main(argv):
     shallow_parser(abs_in, abs_out)
 
 def shallow_parser(inp,out):
-    shallow_command = ''
-    shallow_command = 'shallow_parser_hin ' + str(inp)
-    print shallow_command
+    import subprocess
+    out = out +'/outputofshallowparser'
+    subprocess.call(["shallow_parser_hin", inp, out])
 
 
 if __name__ == "__main__":
