@@ -26,7 +26,7 @@ def main(argv):
     abs_in = os.path.realpath(os.path.join(inputfile))
     cleanup(abs_out)
     #shallow_parser(abs_in, abs_out)
-    get_vgfs("/home/rajat/academics/CL1/project/output/output") # temporarily hard coding
+    get_vgfs("/home/rajat/academics/CL1/project/output/output") # temporarily hard coding the output file of shallow parser
 
 
 def shallow_parser(inp,out):
