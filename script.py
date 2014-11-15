@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys, getopt, os
+import subprocess
 
 def main(argv):
     inputfile = ''
@@ -18,6 +19,13 @@ def main(argv):
             inputfile = arg
         elif opt in ("-o", "--ofile"):
             outputdirectory = arg
+    
+    cleanup('.txt')
+    cleanup('.log')
+    
+    #subprocess.call(["rm *.log"])
+    #subprocess.call(["rm -rf OUTPUT.tmp"])
+
 
     # abs_in is the absolute path of input file
     # abs_out is the absolute path of output folder
@@ -26,10 +34,21 @@ def main(argv):
     shallow_parser(abs_in, abs_out)
 
 def shallow_parser(inp,out):
-    import subprocess
-    out = out +'/outputofshallowparser'
-    subprocess.call(["shallow_parser_hin", inp, out])
+    outfile = out +'/outputofshallowparser'
+    subprocess.call(["shallow_parser_hin", inp, outfile])
+    full_parser(outfile,out)
 
+def full_parser(inp,out):
+    outfile = out +'/output_of_fullparser'
+    command = "sh $setu/bin/sl/fullparser_hin/fullparser_hin_run.sh " + inp + " >> "
+    command = command + outfile
+    os.system(command)
+
+def cleanup(prepend):
+    prepend = str(prepend)
+    PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+    for file_to_delete in [file for file in os.listdir(PROJECT_ROOT) if file.endswith(prepend)]:
+        os.remove(file_to_delete)
 
 if __name__ == "__main__":
    main(sys.argv[1:])
