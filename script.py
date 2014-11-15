@@ -20,18 +20,14 @@ def main(argv):
         elif opt in ("-o", "--ofile"):
             outputdirectory = arg
     
-    cleanup('.txt')
-    cleanup('.log')
-    
-    #subprocess.call(["rm *.log"])
-    #subprocess.call(["rm -rf OUTPUT.tmp"])
-
-
     # abs_in is the absolute path of input file
     # abs_out is the absolute path of output folder
     abs_out = os.path.abspath(os.path.dirname(outputdirectory))
     abs_in = os.path.realpath(os.path.join(inputfile))
-    shallow_parser(abs_in, abs_out)
+    cleanup(abs_out)
+    #shallow_parser(abs_in, abs_out)
+    get_vgfs("/home/rajat/academics/CL1/project/output/output") # temporarily hard coding
+
 
 def shallow_parser(inp,out):
     outfile = out +'/outputofshallowparser'
@@ -43,12 +39,23 @@ def full_parser(inp,out):
     command = "sh $setu/bin/sl/fullparser_hin/fullparser_hin_run.sh " + inp + " >> "
     command = command + outfile
     os.system(command)
+    get_vgfs(outfile)
 
-def cleanup(prepend):
-    prepend = str(prepend)
+def get_vgfs(inp):
+    openfile = open(inp,'r')
+    for line in openfile:
+        for part in line.split():
+            if "VGF" in part:
+                print line
+
+def cleanup(outdir):
+    prepend1 = '.txt'
+    prepend2 = '.log'
+    prepend3 = '.ssf'
     PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-    for file_to_delete in [file for file in os.listdir(PROJECT_ROOT) if file.endswith(prepend)]:
+    for file_to_delete in [file for file in os.listdir(PROJECT_ROOT) if (file.endswith(prepend1) or file.endswith(prepend2) or file.endswith(prepend3))]:
         os.remove(file_to_delete)
+
 
 if __name__ == "__main__":
    main(sys.argv[1:])
