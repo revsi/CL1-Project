@@ -44,9 +44,10 @@ def full_parser(inp,out):
 def get_vgfs(inp):
     openfile = open(inp,'r')
     for line in openfile:
-        for part in line.split():
-            if "VGF" in part:
-                print line
+        part = line.split()
+        if len(part)>3:
+        	if part[1]=='((' and part[2]=='VGF':
+        		print line
 
 def cleanup(outdir):
     prepend1 = '.txt'
