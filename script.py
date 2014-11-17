@@ -24,22 +24,27 @@ def main(argv):
     # abs_out is the absolute path of output folder
     abs_out = os.path.abspath(os.path.dirname(outputdirectory))
     abs_in = os.path.realpath(os.path.join(inputfile))
-    cleanup(abs_out)
-    #shallow_parser(abs_in, abs_out)
-    get_vgfs("/home/rajat/academics/CL1/project/output/output") # temporarily hard coding the output file of shallow parser
+    cleanup()
+    parser(abs_in, abs_out)
+    cleanup()
+    #get_vgfs("/home/rajat/academics/CL1/project/output/output") # temporarily hard coding the output file of shallow parser
 
 
-def shallow_parser(inp,out):
-    outfile = out +'/outputofshallowparser'
-    subprocess.call(["shallow_parser_hin", inp, outfile])
-    full_parser(outfile,out)
+def parser(inp,out):
+    outfile = out +'/output'
+    openfile = open(inp,'r') 
+    for line in openfile:
+    	line = line.rstrip('\n')
+    	command1 = "echo \"" + line + "\" " + "> temp" 
+    	os.system(command1)
+    	command2 = "shallow_parser_hin temp > temp2 "
+    	os.system(command2)
+    	command3 = "sh $setu/bin/sl/fullparser_hin/fullparser_hin_run.sh temp2 >> " +outfile
+    	os.system(command3)
+   # subprocess.call(["shallow_parser_hin", inp, outfile])
+   # full_parser(outfile,out)
 
-def full_parser(inp,out):
-    outfile = out +'/output_of_fullparser'
-    command = "sh $setu/bin/sl/fullparser_hin/fullparser_hin_run.sh " + inp + " >> "
-    command = command + outfile
-    os.system(command)
-    get_vgfs(outfile)
+
 
 def get_vgfs(inp):
     openfile = open(inp,'r')
@@ -49,7 +54,7 @@ def get_vgfs(inp):
         	if part[1]=='((' and part[2]=='VGF':
         		print line
 
-def cleanup(outdir):
+def cleanup():
     prepend1 = '.txt'
     prepend2 = '.log'
     prepend3 = '.ssf'
