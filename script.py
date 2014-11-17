@@ -27,7 +27,6 @@ def main(argv):
     cleanup()
     parser(abs_in, abs_out)
     cleanup()
-    #get_vgfs("/home/rajat/academics/CL1/project/output/output") # temporarily hard coding the output file of shallow parser
 
 
 def parser(inp,out):
@@ -41,8 +40,7 @@ def parser(inp,out):
     	os.system(command2)
     	command3 = "sh $setu/bin/sl/fullparser_hin/fullparser_hin_run.sh temp2 >> " +outfile
     	os.system(command3)
-   # subprocess.call(["shallow_parser_hin", inp, outfile])
-   # full_parser(outfile,out)
+    os.system("rm temp2 temp && rm -r OUTPUT.tmp")
 
 
 
