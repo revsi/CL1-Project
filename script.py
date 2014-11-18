@@ -2,7 +2,7 @@
 
 import sys, getopt, os, re
 import subprocess
-import verbframe
+from verbframe import *
 
 def main(argv):
     inputfile = ''
@@ -46,7 +46,7 @@ def parser(inp,out):
     #get_vgfs(outfile)
 
 def process_output(inp):
-	verbframe.process(inp)
+	process(inp)
 
 def cleanup():
     prepend1 = '.txt'

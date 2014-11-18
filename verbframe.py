@@ -81,12 +81,8 @@ def foroneline(strin):
 		print i
 			
 def process(filename):
-	fo = open(filename, "r")
-	alllines = fo.read(1000000)
-	lineses=re.split("<Sentence id='1'>",alllines)
-	for t in lineses:
-		foroneline(t)
+    fo = open(filename).read()
+    sentences=fo.split("<Sentence id='1'>")
+    for t in sentences:
+        foroneline(t)
 
-		
-
-process("./output")
