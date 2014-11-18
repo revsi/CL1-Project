@@ -1,10 +1,5 @@
 import re
 
-  
-fo = open("output", "r")
-alllines = fo.read(1000000)
-
-lineses=re.split("<Sentence id='1'>",alllines)
 def foroneline(strin):
 	lines=re.split('\n',strin)
 	fl=0
@@ -55,9 +50,7 @@ def foroneline(strin):
 			verb.append(i[2][1][6])#6 is the TAM
 			#print verb
 			verbs.append(verb)
-	
-
-#filtering all Kartas
+	#filtering all Kartas
 		case=[]
 	#print str(i[2])
 		if "drel='k" in str(i[2]):
@@ -87,9 +80,13 @@ def foroneline(strin):
 	for i in verbs:
 		print i
 			
-
-for t in lineses:
-	foroneline(t)
+def process(filename):
+	fo = open(filename, "r")
+	alllines = fo.read(1000000)
+	lineses=re.split("<Sentence id='1'>",alllines)
+	for t in lineses:
+		foroneline(t)
 
 		
-process("/home/rajat/academics/CL1/project/output/output")
+
+process("./output")
