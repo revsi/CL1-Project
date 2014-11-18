@@ -1,6 +1,7 @@
 import re
 
-def foroneline(strin):
+def foroneline(strin,outfile):
+	target = open(outfile,'a') 
 	lines=re.split('\n',strin)
 	fl=0
 	head=0
@@ -14,7 +15,7 @@ def foroneline(strin):
 		data =re.split('\t',i)
 		if(data.__len__()==1):
 			data.append('')
-	
+
 			data.append('')
 			data.append('')
 		if(data.__len__()==2):
@@ -74,15 +75,15 @@ def foroneline(strin):
 	for i in cases:
 		for j in verbs:
 			if j[0]==i[2]:
-				
 				j.append([i[0],i[1]])
 		
 	for i in verbs:
-		print i
+		target.writelines([str(i),"\n"])
 			
-def process(filename):
+def process(filename,out):
     fo = open(filename).read()
+    outfile = out +'/verbframes'
     sentences=fo.split("<Sentence id='1'>")
     for t in sentences:
-        foroneline(t)
+        foroneline(t,outfile)
 

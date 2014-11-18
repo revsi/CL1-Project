@@ -26,9 +26,9 @@ def main(argv):
     abs_out = os.path.abspath(os.path.dirname(outputdirectory))
     abs_in = os.path.realpath(os.path.join(inputfile))
     cleanup()
-    #parser(abs_in, abs_out)
+    parser(abs_in, abs_out)
     cleanup()
-    process_output("/home/rajat/academics/CL1/project/output/output")
+    #process_output("/home/rajat/academics/CL1/project/output/output",abs_out)
 
 
 def parser(inp,out):
@@ -43,10 +43,10 @@ def parser(inp,out):
     	command3 = "sh $setu/bin/sl/fullparser_hin/fullparser_hin_run.sh temp2 >> " +outfile
     	os.system(command3)
     os.system("rm temp2 temp && rm -r OUTPUT.tmp")
-    #get_vgfs(outfile)
+    process_output(outfile,out)
 
-def process_output(inp):
-	process(inp)
+def process_output(inp,out):
+	process(inp,out)
 
 def cleanup():
     prepend1 = '.txt'
