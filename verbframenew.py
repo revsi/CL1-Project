@@ -92,3 +92,4 @@ for t in lineses:
 	foroneline(t)
 
 		
+process("/home/rajat/academics/CL1/project/output/output")
