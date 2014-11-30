@@ -36,10 +36,14 @@ def parser(inp,out):
     openfile = open(inp,'r') 
     for line in openfile:
     	line = line.rstrip('\n')
+        if len(line.split()) > 30:
+            continue
+        print "Number of word : " + str(len(line.split()))
     	command1 = "echo \"" + line + "\" " + "> temp" 
     	os.system(command1)
     	command2 = "shallow_parser_hin --out_encoding=wx temp > temp2 "
     	os.system(command2)
+        
     	command3 = "sh $setu/bin/sl/fullparser_hin/fullparser_hin_run.sh temp2 >> " +outfile
     	os.system(command3)
     os.system("rm temp2 temp && rm -r OUTPUT.tmp")
