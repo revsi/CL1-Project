@@ -32,7 +32,8 @@ def main(argv):
 
 
 def parser(inp,out):
-    outfile = out +'/output'
+    outfile = out +'/fulloutput'
+    shallowoutput = out + '/shallowoutput'
     openfile = open(inp,'r') 
     for line in openfile:
     	line = line.rstrip('\n')
@@ -43,7 +44,8 @@ def parser(inp,out):
     	os.system(command1)
     	command2 = "shallow_parser_hin --out_encoding=wx temp > temp2 "
     	os.system(command2)
-        
+        command4 = "cat temp2 >> " + shallowoutput
+        os.system(command4)
     	command3 = "sh $setu/bin/sl/fullparser_hin/fullparser_hin_run.sh temp2 >> " +outfile
     	os.system(command3)
     os.system("rm temp2 temp && rm -r OUTPUT.tmp")
