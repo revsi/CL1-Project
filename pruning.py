@@ -11,8 +11,14 @@ def pruning(inp,out):
     process(lines,out)
 
 def process(lines,out):
-    for line in lines:
-        l=len(line)-3
+    for line1 in lines:
+        for line2 in lines:
+            if len(line2)!=len(line1):
+                continue
+            for i in range(len(line1)-3):
+                if line1[i+3][1]==line2[i+3][1]:
+                    print line1[i+3][1]
+
         
 
 
