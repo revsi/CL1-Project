@@ -11,14 +11,46 @@ def pruning(inp,out):
     process(lines,out)
 
 def process(lines,out):
-    for line1 in lines:
-        for line2 in lines:
-            if len(line2)!=len(line1):
+    i=-1
+    j=0
+    while(i<len(lines)):
+        i=i+1
+        j=i
+        if(i==len(lines)):
+            break
+        while(j<len(lines)):
+            j=j+1
+            if (j==len(lines)):
+                break
+            line1=lines[i]
+            line2=lines[j]
+            if len(line2)<len(line1):
                 continue
-            for i in range(len(line1)-3):
-                if line1[i+3][1]==line2[i+3][1]:
-                    print line1[i+3][1]
+            if len(line2)>len(line1):
+                break
+            nk=len(line1)
+            flag=True
+            if line1[1]==line2[1] and line1[2]==line2[2]:
+                for k in xrange(3,nk):
+                    if line1[k][1]==line2[k][1]:
+                        flag=True
+                    else:
+                        flag=False
+                        break
+                if flag == True:
+                    for k in xrange(3,nk):
+                        if type(line1[k][0]) != list:
+                            temp = line1[k][0]
+                            new = [temp]
+                            line1[k][0]=new
+                        line1[k][0].append(line2[k][0])
+                    del lines[j]
+                    j=j-1
 
+
+    for i in xrange(len(lines)):
+        print lines[i]
+                            
         
 
 
