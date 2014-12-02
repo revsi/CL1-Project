@@ -4,7 +4,7 @@ def pruning(inp,out):
     f_read = open(inp, "r")
     lines = [ast.literal_eval(line) for line in f_read if line.strip()]
     f_read.close()
-    lines.sort(key=lambda line: len(line))
+    lines.sort(key=lambda line: len(line)) #converting stored string into python list
     f_write = open(inp,'w')
     for line in lines:
         f_write.write(str(line)+"\n")
@@ -43,11 +43,13 @@ def process(lines,out):
                             temp = line1[k][0]
                             new = [temp]
                             line1[k][0]=new
-                        line1[k][0].append(line2[k][0])
-                    del lines[j]
+                        line1[k][0].append(line2[k][0]) #adding words of same verb,karakas
+                        line1[k][0]=list(set(line1[k][0]))
+                    del lines[j] # removing the verb frame after adding above
                     j=j-1
 
 
+    lines.sort(key=lambda line:(line[1],line[2]))
     for i in xrange(len(lines)):
         print lines[i]
                             
