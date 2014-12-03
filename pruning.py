@@ -8,11 +8,13 @@ def pruning(inp,out):
     f_write = open(inp,'w')
     for line in lines:
         f_write.write(str(line)+"\n")
-    process(lines,out)
+    outfile = out +'/prunedOutput'
+    process_pruning(lines,outfile)
 
-def process(lines,out):
+def process_pruning(lines,outfile):
     i=-1
     j=0
+    target = open(outfile,'a') 
     while(i<len(lines)):
         i=i+1
         j=i
@@ -50,14 +52,12 @@ def process(lines,out):
 
 
     lines.sort(key=lambda line:(line[1],line[2]))
-    for i in xrange(len(lines)):
-        print lines[i]
+    for i in lines:
+        if len(i)>3:
+            target.writelines([str(i),"\n"])
                             
         
 
-
-
-pruning("/home/rajat/academics/CL1/project/output/verbframes","/home/rajat/academics/CL1/project/output/")
 
 
 
