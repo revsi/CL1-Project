@@ -20,7 +20,7 @@ Usage
 
 Basic usage:
 
-./script -i [input file] -o [output directory]
+./script.py -i [input file] -o [output directory]
 
 
 
