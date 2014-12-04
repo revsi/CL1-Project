@@ -4,10 +4,6 @@ CL1-Project
 Verb Frames extraction from Hindi Language Corpus
 
 
-Algorithms
-----------
-
-
 Requirements
 ------------
 * [shallow_parser_hin](http://ltrc.iiit.ac.in/showfile.php?filename=downloads/shallow_parser.php)
