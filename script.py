@@ -35,11 +35,14 @@ def parser(inp,out):
     outfile = out +'/fulloutput'
     shallowoutput = out + '/shallowoutput'
     openfile = open(inp,'r') 
+    num=0
     for line in openfile:
     	line = line.rstrip('\n')
-        if len(line.split()) > 30:
+        if len(line.split()) > 25:
             continue
-        print "Number of word : " + str(len(line.split()))
+        #print "Number of word : " + str(len(line.split()))
+        num = num +1
+        print " Processing Sentence number : " + str (num)
     	command1 = "echo \"" + line + "\" " + "> temp" 
     	os.system(command1)
     	command2 = "shallow_parser_hin --out_encoding=wx temp > temp2 "
@@ -50,6 +53,7 @@ def parser(inp,out):
     	os.system(command3)
     os.system("rm temp2 temp && rm -r OUTPUT.tmp")
     process_output(outfile,out)
+    vectorise(outfile,out)
 
 def process_output(inp,out):
 	process(inp,out)

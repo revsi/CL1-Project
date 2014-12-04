@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import ast
+from vectorise import *
 def pruning(inp,out):
     f_read = open(inp, "r")
     lines = [ast.literal_eval(line) for line in f_read if line.strip()]
@@ -52,8 +53,11 @@ def process_pruning(lines,outfile):
 
 
     lines.sort(key=lambda line:(line[1],line[2]))
+    x=0
     for i in lines:
         if len(i)>3:
+            x=x+1
+            i[0]=x
             target.writelines([str(i),"\n"])
                             
         

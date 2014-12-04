@@ -1,5 +1,8 @@
-import re
-
+#!/usr/bin/python
+import ast
+import sys, getopt, os, re
+import subprocess
+from pruning import *
 def foroneline(strin,outfile):
 	target = open(outfile,'a') 
 	lines=re.split('\n',strin)
@@ -33,7 +36,6 @@ def foroneline(strin,outfile):
 					datavalues[2].append("")	
 		datavalues[2][1]=re.split(',',datavalues[2][1])
 		Ldatavalues.append(datavalues)
-		#print datavalues
 		#datavalues = ['((', 'NP', ['<fs', ["af='snAna", 'n', 'm', 'sg', '3', 'o', '0_se', "0'"], "head='snAna'", "vpos='vib1_2'", "name='NP10'", "drel='k2:VGF2'>", '', '']]
 	#Ldatavalues os list of all  such datavalues lines
 
@@ -57,7 +59,18 @@ def foroneline(strin,outfile):
 		if "drel='k" in str(i[2]):
 			while i[2][-1]=='':
 				i[2].pop()
-			case.append(i[2][1][0].strip('"af=').strip("'"))#0 is noun root
+			#print str(i[2][2].strip("head='").strip("'"))
+			#print i[2][2] + "into"
+			for j in i[2]:
+				if(j[0]=='h'):
+					b=j.strip("head=").strip("'")
+					if(len(b)>=2):
+						if(b[-1].isdigit()==True and b[-2].isdigit()==False):
+							b = b[:-1]
+					case.append(b)#0 is noun 
+				#print i[2][2].strip("head=").strip("'")
+			#0 is noun
+			#print i[2][2].strip("head=").strip("'")
 			if(i[2][1][6]==''):
 				i[2][1][6]='0'
 			string=i[2][-1]
@@ -86,4 +99,5 @@ def process(filename,out):
     sentences=fo.split("<Sentence id='1'>")
     for t in sentences:
         foroneline(t,outfile)
+    pruning(outfile,out)
 
